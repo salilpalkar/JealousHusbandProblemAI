@@ -1,5 +1,5 @@
 package aiproject;
-//Husband Wife Problem
+//Jealous Husband Problem
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,42 +27,42 @@ class State implements Comparable<State>{
      boolean isValidState(){
         if(w1==PRESENT){//wife present 
             if(h1==ABSENT && (h2==PRESENT || h3==PRESENT)){//husband not present and either of other husband present
-                System.out.println(this+" is not valid");
+              //  System.out.println(this+" is not valid");
                 return false;
             }
         }
         if(w2==PRESENT){//wife present
             if(h2==ABSENT && (h1==PRESENT || h3==PRESENT)){//husband not present and either of other husband present
-              System.out.println(this+" is not valid");
+            //  System.out.println(this+" is not valid");
                 return false;
             }
         }
         if(w3==PRESENT){//wife present
             if(h3==ABSENT && (h1==PRESENT || h2==PRESENT)){//husband not present and either of other husband present
-                 System.out.println(this+" is not valid");
+                // System.out.println(this+" is not valid");
                 return false;
             }
         }
          // Checking right bank
         if(w1==ABSENT){//wife present 
             if(h1==PRESENT && (h2==ABSENT || h3==ABSENT)){//husband not present and either of other husband present
-                System.out.println(this+" is not valid");
+               // System.out.println(this+" is not valid");
                 return false;
             }
         }
         if(w2==ABSENT){//wife present
             if(h2==PRESENT && (h1==ABSENT || h3==ABSENT)){//husband not present and either of other husband present
-              System.out.println(this+" is not valid");
+              //System.out.println(this+" is not valid");
                 return false;
             }
         }
         if(w3==ABSENT){//wife present
             if(h3==PRESENT && (h1==ABSENT || h2==ABSENT)){//husband not present and either of other husband present
-                 System.out.println(this+" is not valid");
+                // System.out.println(this+" is not valid");
                 return false;
             }
         }
-         System.out.println(this+" is valid");
+        // System.out.println(this+" is valid");
         return true;//all other cases
         
     }
@@ -120,6 +120,7 @@ class State implements Comparable<State>{
         return s;
     }
     //operator 1,2,3
+    //Couple number "code" travels from one bank to another
     private State husbandWife(int code){
         State s;
         /*variable code represents the id of husband and wife switching the shore*/
@@ -153,6 +154,7 @@ class State implements Comparable<State>{
         return s;
     }
     //operation 4,5.6
+    // Husband number code1 and code2 travel to another bank
     private State husbands(int code1,int code2){
         State s;
         if(code1==1 && code2==2){
@@ -176,6 +178,7 @@ class State implements Comparable<State>{
         return s;
     }
     //opertion 7,8,9
+    //Wife number code1 and code2 travel to another bank
     private State wives(int code1,int code2){
         State s;
         if(code1==1 && code2==2){
@@ -199,6 +202,7 @@ class State implements Comparable<State>{
         return s;
     }
     //10,11,12
+    // husband number code1 travel to another bank
     private State husband(int code1){
         State s=null;
         switch (code1) {
@@ -219,6 +223,7 @@ class State implements Comparable<State>{
         return s;
     }
     //13,14,15
+    // wife number code1 travel to another bank
     private State wife(int code1){
         State s=null;
         switch (code1) {
@@ -238,6 +243,7 @@ class State implements Comparable<State>{
         }
         return s;
     }
+    // toggles the state of object
     private int toggle(int ob){
         return (ob==PRESENT)?ABSENT:PRESENT;
     }
@@ -253,10 +259,7 @@ class State implements Comparable<State>{
         String s=""+((h1==1)?"h1":"")+((h2==1)?"h2":"")+((h3==1)?"h3":"")+((w1==1)?"w1":"")+((w2==1)?"w2":"")+((w3==1)?"w3":"")+((b==1)?"b":"")+"\t\t\t\t";
         s+=((h1==0)?"h1":"")+((h2==0)?"h2":"")+((h3==0)?"h3":"")+((w1==0)?"w1":"")+((w2==0)?"w2":"")+((w3==0)?"w3":"")+((b==0)?"b":"")+"\n";
         System.out.println(s);
-        //return s;
-//        System.out.print("h1=" + h1 + ", h2=" + h2 + ", h3=" + h3 + ", w1=" + w1 + ", w2=" + w2 + ", w3=" + w3 + ", b=" + b + ", hx=" + hx + "\n prev= " );
-//        if(prev!=null)
-//            prev.display();
+
     }   
    
     public boolean equals(State s){
@@ -293,54 +296,54 @@ public class AIProject {
                return null;
            }
            State currentState=frontier.poll();
-           System.out.println("Current State = "+currentState);
+         //  System.out.println("Current State = "+currentState);
            if(currentState.compareTo(finalState)==0){
                System.out.println("Final State found");
                return currentState;
            }
            exploredSet.add(currentState);
-           System.out.println(currentState+" added to explored set");
+          // System.out.println(currentState+" added to explored set");
            for(int i=1;i<=15;i++){
                State state=currentState.generateNextState(i);
                //System.out.println(i+" "+state);
                if(state==null){
-                   System.out.println(i+" "+null);
+                   //System.out.println(i+" "+null);
                    continue;
                }
                if(!state.isValidState()){
-                   System.out.println(i+" invalid state");
+                   //System.out.println(i+" invalid state");
                    continue;
                }
                if(!findInFrontier(frontier,state) && !findInES(exploredSet,state)){
-                   System.out.println(i+" "+state+" added to frontier");
+                   //System.out.println(i+" "+state+" added to frontier");
                    frontier.add(state);
                }
-               else
-                   System.out.println("Not added");
+//               else
+//                  System.out.println("Not added");
                //System.out.println(""+i);
            }
-           System.out.println("\n");
+           //System.out.println("\n");
        }
     }
     static boolean findInES(ArrayList<State> arr,State element){
         for (State arr1 : arr) {
             if(arr1.equals(element)){
-                System.out.println(element+" exists in ES");
+                //System.out.println(element+" exists in ES");
                 return true;
             }
         }
-        System.out.println(element+" does not exists in ES");
+       // System.out.println(element+" does not exists in ES");
         return false;
     }
     static boolean findInFrontier(PriorityQueue<State> pq,State element){
         Iterator<State> itr = pq.iterator(); 
         while (itr.hasNext()){
             if(element.equals(itr.next())){
-                System.out.println(element+" exists in Frontier");
+               // System.out.println(element+" exists in Frontier");
                 return true;
             }
        }
-       System.out.println(element+"does not exists in Frontier");
+       //System.out.println(element+"does not exists in Frontier");
        return false;
     }
 }
